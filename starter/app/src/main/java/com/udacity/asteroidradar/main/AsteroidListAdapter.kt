@@ -15,6 +15,14 @@ class AsteroidListAdapter: ListAdapter<Asteroid, AsteroidListAdapter.AsteroidVie
             binding.asteroid = asteroid
             binding.executePendingBindings()
         }
+
+        companion object {
+            fun from(parent: ViewGroup): AsteroidViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = AsteroidListItemBinding.inflate(layoutInflater, parent, false)
+                return AsteroidViewHolder(binding)
+            }
+        }
     }
 
     object DiffCallback : DiffUtil.ItemCallback<Asteroid>()  {
@@ -29,7 +37,7 @@ class AsteroidListAdapter: ListAdapter<Asteroid, AsteroidListAdapter.AsteroidVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidViewHolder {
-        return AsteroidViewHolder(AsteroidListItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return AsteroidViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: AsteroidViewHolder, position: Int) {
