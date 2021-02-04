@@ -13,16 +13,17 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val binding = FragmentMainBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-
-        binding.viewModel = viewModel
-
-        setHasOptionsMenu(true)
-
-        return binding.root
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return FragmentMainBinding.inflate(inflater).let { binding ->
+            binding.lifecycleOwner = this
+            binding.viewModel = viewModel
+            binding.asteroidRecycler.adapter = AsteroidListAdapter()
+            setHasOptionsMenu(true)
+            binding.root
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
