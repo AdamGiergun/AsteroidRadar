@@ -7,6 +7,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+enum class AsteroidsApiStatus  { LOADING, ERROR, DONE }
+
 private const val BASE_URL =
     "https://api.nasa.gov/neo/rest/v1/"
 
