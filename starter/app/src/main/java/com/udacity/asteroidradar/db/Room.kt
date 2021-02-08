@@ -29,7 +29,7 @@ fun getDatabase(context: Context): AsteroidsDb {
                 Room.databaseBuilder(
                     context.applicationContext,
                     AsteroidsDb::class.java,
-                    "videos"
+                    "asteroids"
                 ).build()
         }
     }
