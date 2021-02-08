@@ -8,7 +8,7 @@ package com.udacity.asteroidradar.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.db.DbAsteroid
 
 @JsonClass(generateAdapter = true)
 data class NeoFeed(
@@ -68,9 +68,9 @@ data class NeoFeed(
     }
 }
 
-fun NeoFeed.asDomainModel(): List<Asteroid> {
+fun NeoFeed.asDbModel(): Array<DbAsteroid> {
     return nearEarthObjects.entries.flatMap { it.value }.map {
-        Asteroid(
+        DbAsteroid(
             id = it.id,
             codename = it.name,
             closeApproachDate = it.closeApproachData[0].date,
@@ -80,5 +80,5 @@ fun NeoFeed.asDomainModel(): List<Asteroid> {
             distanceFromEarth = it.closeApproachData[0].missDistance.kilometers,
             isPotentiallyHazardous = it.isPotentiallyHazardousAsteroid
         )
-    }
+    }.toTypedArray()
 }
