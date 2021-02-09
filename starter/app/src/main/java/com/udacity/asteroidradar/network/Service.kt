@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-enum class AsteroidsApiStatus  { LOADING, ERROR, DONE }
+enum class NasaApiStatus  { LOADING, ERROR, DONE }
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -19,17 +19,23 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface AsteroidsApiService {
+interface NasaApiService {
     @GET("neo/rest/v1/feed")
     suspend fun getAsteroids(
         @Query("api_key") apiKey: String,
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String)
-    : NeoFeed
+    : NearEarthObjectsContainer
+
+    @GET("planetary/apod")
+    suspend fun getAPOD(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String
+    ) : AstronomyPictureOfTheDay
 }
 
-object AsteroidsApi {
-    val retrofitApiService: AsteroidsApiService by lazy {
-        retrofit.create(AsteroidsApiService::class.java)
+object NasaApi {
+    val retrofitApiService: NasaApiService by lazy {
+        retrofit.create(NasaApiService::class.java)
     }
 }

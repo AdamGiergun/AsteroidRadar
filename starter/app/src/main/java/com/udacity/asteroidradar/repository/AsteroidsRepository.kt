@@ -6,7 +6,7 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.NASA_API_KEY
 import com.udacity.asteroidradar.db.AsteroidsDb
 import com.udacity.asteroidradar.db.asDomainModel
-import com.udacity.asteroidradar.network.AsteroidsApi
+import com.udacity.asteroidradar.network.NasaApi
 import com.udacity.asteroidradar.network.asDbModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,10 +19,10 @@ class AsteroidsRepository(private val db: AsteroidsDb) {
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
-            val asteroids = AsteroidsApi.retrofitApiService.getAsteroids(
+            val asteroids = NasaApi.retrofitApiService.getAsteroids(
                 NASA_API_KEY,
-                "2021-01-01",
-                "2021-01-02"
+                "2021-02-01",
+                "2021-02-02"
             ).asDbModel()
             db.asteroidDao.insertAll(*asteroids)
         }

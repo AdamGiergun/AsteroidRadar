@@ -11,7 +11,7 @@ import com.squareup.moshi.JsonClass
 import com.udacity.asteroidradar.db.DbAsteroid
 
 @JsonClass(generateAdapter = true)
-data class NeoFeed(
+data class NearEarthObjectsContainer(
     @Json(name = "element_count") val elementCount: Int,
     @Json(name = "near_earth_objects") val nearEarthObjects: Map<String, List<NearEarthObject>>
 ) {
@@ -68,7 +68,7 @@ data class NeoFeed(
     }
 }
 
-fun NeoFeed.asDbModel(): Array<DbAsteroid> {
+fun NearEarthObjectsContainer.asDbModel(): Array<DbAsteroid> {
     return nearEarthObjects.entries.flatMap { it.value }.map {
         DbAsteroid(
             id = it.id,
@@ -81,4 +81,27 @@ fun NeoFeed.asDbModel(): Array<DbAsteroid> {
             isPotentiallyHazardous = it.isPotentiallyHazardousAsteroid
         )
     }.toTypedArray()
+}
+
+@JsonClass(generateAdapter = true)
+data class AstronomyPictureOfTheDay(
+    val copyright: String,
+    val date: String,
+    val explanation: String,
+    @Json(name = "media_type") val mediaTypeString: String,
+    @Json(name = "service_version") val serviceVersion: String,
+    val title: String,
+    val url: String
+) {
+    enum class MediaType(val value: String) {
+        IMAGE("image"),
+        VIDEO("video"),
+        UNKNOWN("")
+    }
+
+    val mediaType = when (mediaTypeString) {
+        "image" -> MediaType.IMAGE
+        "video" -> MediaType.VIDEO
+        else -> MediaType.UNKNOWN
+    }
 }

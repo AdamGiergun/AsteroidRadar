@@ -4,7 +4,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
+import com.udacity.asteroidradar.network.AstronomyPictureOfTheDay
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
@@ -46,4 +48,28 @@ fun bindTextViewToKmUnit(textView: TextView, number: Double) {
 fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
     val context = textView.context
     textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
+}
+
+
+@BindingAdapter("apod")
+fun ImageView.bindApod(apod: AstronomyPictureOfTheDay?) {
+    apod?.let {
+        when (apod.mediaType) {
+            AstronomyPictureOfTheDay.MediaType.IMAGE -> {
+                Picasso.get().load(apod.url).into(this)
+//            Glide.with(imgView.context)
+//                .load(imgUri)
+//                .apply(RequestOptions()
+//                    .placeholder(R.drawable.loading_animation)
+//                    .error(R.drawable.ic_broken_image))
+//                .into(imgView)
+            }
+            AstronomyPictureOfTheDay.MediaType.VIDEO -> {
+                setImageResource(R.drawable.placeholder_picture_of_day)
+            }
+            else -> {
+                setImageResource(R.drawable.placeholder_picture_of_day)
+            }
+        }
+    }
 }
