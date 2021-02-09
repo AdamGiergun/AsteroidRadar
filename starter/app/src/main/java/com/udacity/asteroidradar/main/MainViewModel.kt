@@ -29,7 +29,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _asteroidsStatus.value = NasaApiStatus.LOADING
             try {
-                //asteroidsRepository.refreshAsteroids()
+                asteroidsRepository.refreshAsteroids()
                 _asteroidsStatus.value = NasaApiStatus.DONE
             } catch (e: Exception) {
                 _asteroidsStatus.value = NasaApiStatus.ERROR
