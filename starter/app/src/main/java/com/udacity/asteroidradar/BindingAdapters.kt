@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar
 
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -9,45 +10,45 @@ import com.udacity.asteroidradar.main.AsteroidListAdapter
 import com.udacity.asteroidradar.network.AstronomyPictureOfTheDay
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
-    val adapter = recyclerView.adapter as AsteroidListAdapter
-    adapter.submitList(data)
+fun RecyclerView.bindData(data: List<Asteroid>?) {
+    (adapter as AsteroidListAdapter).submitList(data)
 }
 
 @BindingAdapter("statusIcon")
-fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
-    if (isHazardous) {
-        imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+fun ImageView.bindAsteroidStatusImage(isHazardous: Boolean) {
+    contentDescription = if (isHazardous) {
+        setImageResource(R.drawable.ic_status_potentially_hazardous)
+        context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
-        imageView.setImageResource(R.drawable.ic_status_normal)
+        setImageResource(R.drawable.ic_status_normal)
+        context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 
 @BindingAdapter("asteroidStatusImage")
-fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
-    if (isHazardous) {
-        imageView.setImageResource(R.drawable.asteroid_hazardous)
+fun ImageView.bindDetailsStatusImage(isHazardous: Boolean) {
+    contentDescription = if (isHazardous) {
+        setImageResource(R.drawable.asteroid_hazardous)
+        context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
-        imageView.setImageResource(R.drawable.asteroid_safe)
+        setImageResource(R.drawable.asteroid_safe)
+        context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 
 @BindingAdapter("astronomicalUnitText")
-fun bindTextViewToAstronomicalUnit(textView: TextView, number: Double) {
-    val context = textView.context
-    textView.text = String.format(context.getString(R.string.astronomical_unit_format), number)
+fun TextView.bindAstronomicalUnit(number: Double) {
+    text = String.format(context.getString(R.string.astronomical_unit_format), number)
 }
 
 @BindingAdapter("kmUnitText")
-fun bindTextViewToKmUnit(textView: TextView, number: Double) {
-    val context = textView.context
-    textView.text = String.format(context.getString(R.string.km_unit_format), number)
+fun TextView.bindKmUnit(number: Double) {
+    text = String.format(context.getString(R.string.km_unit_format), number)
 }
 
 @BindingAdapter("velocityText")
-fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
-    val context = textView.context
-    textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
+fun TextView.bindDisplayVelocity(number: Double) {
+    text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
 
 
@@ -57,15 +58,11 @@ fun ImageView.bindApod(apod: AstronomyPictureOfTheDay?) {
         when (apod.mediaType) {
             AstronomyPictureOfTheDay.MediaType.IMAGE -> {
                 Picasso.get().load(apod.url).into(this)
-//            Glide.with(imgView.context)
-//                .load(imgUri)
-//                .apply(RequestOptions()
-//                    .placeholder(R.drawable.loading_animation)
-//                    .error(R.drawable.ic_broken_image))
-//                .into(imgView)
             }
             AstronomyPictureOfTheDay.MediaType.VIDEO -> {
-                setImageResource(R.drawable.placeholder_picture_of_day)
+                setImageResource(android.R.drawable.ic_media_play)
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
             }
             else -> {
                 setImageResource(R.drawable.placeholder_picture_of_day)
