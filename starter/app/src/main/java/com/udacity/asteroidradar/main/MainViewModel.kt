@@ -21,7 +21,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val apodStatus: LiveData<NasaApiStatus>
         get() = _apodStatus
 
-   private val database = getDatabase(application)
+    private val database = getDatabase(application)
     private val asteroidsRepository = AsteroidsRepository(database)
     private val apodRepository = ApodRepository()
 
@@ -29,7 +29,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _asteroidsStatus.value = NasaApiStatus.LOADING
             try {
-                asteroidsRepository.refreshAsteroids()
+                if (asteroidsRepository.hasNoFreshData()) {
+                    asteroidsRepository.refreshAsteroids()
+                }
                 _asteroidsStatus.value = NasaApiStatus.DONE
             } catch (e: Exception) {
                 _asteroidsStatus.value = NasaApiStatus.ERROR

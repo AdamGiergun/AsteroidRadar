@@ -14,9 +14,10 @@ import kotlinx.coroutines.withContext
 
 class AsteroidsRepository(private val db: AsteroidsDb) {
 
-    val asteroids: LiveData<List<Asteroid>> = Transformations.map(db.asteroidDao.getAsteroids(TODAY_DATE_FORMATTED)) {
-        it.asDomainModel()
-    }
+    val asteroids: LiveData<List<Asteroid>> =
+        Transformations.map(db.asteroidDao.getAsteroids(TODAY_DATE_FORMATTED)) {
+            it.asDomainModel()
+        }
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
@@ -25,6 +26,12 @@ class AsteroidsRepository(private val db: AsteroidsDb) {
                 TODAY_DATE_FORMATTED
             ).asDbModel()
             db.asteroidDao.insertAll(*asteroids)
+        }
+    }
+
+    fun hasNoFreshData(): Boolean {
+        asteroids.value.let  { list ->
+            return list == null || list.isEmpty()
         }
     }
 }

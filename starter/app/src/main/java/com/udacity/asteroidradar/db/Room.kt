@@ -10,6 +10,9 @@ interface AsteroidDao {
     @Query("SELECT * FROM dbasteroid WHERE closeApproachDate >= :sinceDate ORDER BY closeApproachDate, isPotentiallyHazardous DESC, distanceFromEarth")
     fun getAsteroids(sinceDate: String): LiveData<List<DbAsteroid>>
 
+    @Query("SELECT count(*) FROM dbasteroid WHERE closeApproachDate >= :sinceDate")
+    fun getCount(sinceDate: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg asteroids: DbAsteroid)
 }
