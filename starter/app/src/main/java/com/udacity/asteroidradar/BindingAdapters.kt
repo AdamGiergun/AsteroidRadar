@@ -59,12 +59,14 @@ fun ImageView.bindApod(apod: PictureOfDay?) {
     apod?.let {
         when (it.mediaType) {
             PictureOfDay.MediaType.IMAGE -> {
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
                 Picasso
                     .get()
                     .load(it.url)
                     .into(this)
             }
             PictureOfDay.MediaType.VIDEO -> {
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
                 setImageResource(R.drawable.ic_play_circle)
                 contentDescription = context.getString(R.string.touch_to_play_video)
                 setOnClickListener { _ ->
@@ -76,6 +78,7 @@ fun ImageView.bindApod(apod: PictureOfDay?) {
                 }
             }
             else -> {
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
                 setImageResource(R.drawable.ic_broken_image)
             }
         }
@@ -102,8 +105,6 @@ fun ImageView.bindApodStatus(status: NasaApiStatus) {
             layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
             setImageResource(R.drawable.loading_animation)
         }
-        NasaApiStatus.DONE -> {
-            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-        }
+        NasaApiStatus.DONE -> {}
     }
 }
