@@ -2,7 +2,6 @@ package com.udacity.asteroidradar
 
 import android.content.Intent
 import android.net.Uri
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -10,7 +9,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
-import com.udacity.asteroidradar.network.AstronomyPictureOfTheDay
 
 @BindingAdapter("listData")
 fun RecyclerView.bindData(data: List<Asteroid>?) {
@@ -54,27 +52,22 @@ fun TextView.bindDisplayVelocity(number: Double) {
     text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
 
-
 @BindingAdapter("apod")
-fun ImageView.bindApod(apod: AstronomyPictureOfTheDay?) {
+fun ImageView.bindApod(apod: PictureOfDay?) {
     apod?.let {
-        when (apod.mediaType) {
-            AstronomyPictureOfTheDay.MediaType.IMAGE -> {
+        when (it.mediaType) {
+            PictureOfDay.MediaType.IMAGE -> {
                 Picasso
                     .get()
-                    .load(apod.url)
-                    .placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.ic_connection_error)
+                    .load(it.url)
                     .into(this)
             }
-            AstronomyPictureOfTheDay.MediaType.VIDEO -> {
+            PictureOfDay.MediaType.VIDEO -> {
                 setImageResource(R.drawable.ic_play_circle)
-                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                 contentDescription = context.getString(R.string.touch_to_play_video)
-                setOnClickListener {
-                    val videoUrl: Uri = Uri.parse(apod.url)
-                    val intent = Intent(Intent.ACTION_VIEW, videoUrl)
+                setOnClickListener { _ ->
+                    val videoUri = Uri.parse(it.url)
+                    val intent = Intent(Intent.ACTION_VIEW, videoUri)
                     if (intent.resolveActivity(context.packageManager) != null) {
                         startActivity(context, intent, null)
                     }
@@ -84,5 +77,14 @@ fun ImageView.bindApod(apod: AstronomyPictureOfTheDay?) {
                 setImageResource(R.drawable.ic_broken_image)
             }
         }
+        contentDescription = it.title
     }
+}
+
+@BindingAdapter("apodDesc")
+fun TextView.bindApodDesc(apod: PictureOfDay?) {
+    text = if (apod != null && apod.mediaType == PictureOfDay.MediaType.VIDEO)
+        context.getString(R.string.video_of_the_day)
+    else
+        context.getString(R.string.image_of_the_day)
 }
