@@ -1,8 +1,11 @@
 package com.udacity.asteroidradar
 
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -57,15 +60,28 @@ fun ImageView.bindApod(apod: AstronomyPictureOfTheDay?) {
     apod?.let {
         when (apod.mediaType) {
             AstronomyPictureOfTheDay.MediaType.IMAGE -> {
-                Picasso.get().load(apod.url).into(this)
+                Picasso
+                    .get()
+                    .load(apod.url)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_connection_error)
+                    .into(this)
             }
             AstronomyPictureOfTheDay.MediaType.VIDEO -> {
-                setImageResource(android.R.drawable.ic_media_play)
+                setImageResource(R.drawable.ic_play_circle)
                 layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
                 layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                contentDescription = context.getString(R.string.touch_to_play_video)
+                setOnClickListener {
+                    val videoUrl: Uri = Uri.parse(apod.url)
+                    val intent = Intent(Intent.ACTION_VIEW, videoUrl)
+                    if (intent.resolveActivity(context.packageManager) != null) {
+                        startActivity(context, intent, null)
+                    }
+                }
             }
             else -> {
-                setImageResource(R.drawable.placeholder_picture_of_day)
+                setImageResource(R.drawable.ic_broken_image)
             }
         }
     }
