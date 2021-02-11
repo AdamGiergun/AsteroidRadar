@@ -2,6 +2,7 @@ package com.udacity.asteroidradar
 
 import android.content.Intent
 import android.net.Uri
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -9,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
+import com.udacity.asteroidradar.network.NasaApiStatus
 
 @BindingAdapter("listData")
 fun RecyclerView.bindData(data: List<Asteroid>?) {
@@ -87,4 +89,21 @@ fun TextView.bindApodDesc(apod: PictureOfDay?) {
         context.getString(R.string.video_of_the_day)
     else
         context.getString(R.string.image_of_the_day)
+}
+
+@BindingAdapter("apodStatus")
+fun ImageView.bindApodStatus(status: NasaApiStatus) {
+    when (status) {
+        NasaApiStatus.ERROR -> {
+            layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+            setImageResource(R.drawable.ic_connection_error)
+        }
+        NasaApiStatus.LOADING -> {
+            layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+            setImageResource(R.drawable.loading_animation)
+        }
+        NasaApiStatus.DONE -> {
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+        }
+    }
 }

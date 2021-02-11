@@ -25,13 +25,13 @@
 
             <ImageView
                 android:id="@+id/activity_main_image_of_the_day"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:apod="@{viewModel.apod}"
-                app:srcCompat="@drawable/loading_animation"
+                app:apodStatus="@{viewModel.apodStatus}"
                 tools:ignore="ContentDescription"
                 tools:srcCompat="@drawable/placeholder_picture_of_day" />
             <!-- ContentDescription is set in code -->
