@@ -8,6 +8,7 @@ package com.udacity.asteroidradar.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.db.DbAsteroid
 
 @JsonClass(generateAdapter = true)
@@ -92,16 +93,13 @@ data class AstronomyPictureOfTheDay(
     @Json(name = "service_version") val serviceVersion: String,
     val title: String,
     val url: String
-) {
-    enum class MediaType(val value: String) {
-        IMAGE("image"),
-        VIDEO("video"),
-        UNKNOWN("")
-    }
+)
 
+fun AstronomyPictureOfTheDay.asDomainModel(): PictureOfDay {
     val mediaType = when (mediaTypeString) {
-        "image" -> MediaType.IMAGE
-        "video" -> MediaType.VIDEO
-        else -> MediaType.UNKNOWN
+        "image" -> PictureOfDay.MediaType.IMAGE
+        "video" -> PictureOfDay.MediaType.VIDEO
+        else -> PictureOfDay.MediaType.UNKNOWN
     }
+    return PictureOfDay(mediaType, title, url)
 }
