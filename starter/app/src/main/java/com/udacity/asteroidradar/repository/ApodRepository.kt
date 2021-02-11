@@ -18,7 +18,7 @@ class ApodRepository {
         _apod.value = NasaApi.retrofitApiService.getAPOD(
             NASA_API_KEY,
             TODAY_DATE_FORMATTED
-            //"2021-02-09"
+            // "2021-02-09" // use it for testing PictureOfDay.MediaType.VIDEO
         ).asDomainModel()
     }
 }
