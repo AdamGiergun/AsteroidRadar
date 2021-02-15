@@ -17,9 +17,9 @@ import java.util.*
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _asteroidsStatus = MutableLiveData<NasaApiStatus>()
-    val asteroidsStatus: LiveData<NasaApiStatus>
-        get() = _asteroidsStatus
+    private val _listStatus = MutableLiveData<NasaApiStatus>()
+    val listStatus: LiveData<NasaApiStatus>
+        get() = _listStatus
 
     private val _apodStatus = MutableLiveData<NasaApiStatus>()
     val apodStatus: LiveData<NasaApiStatus>
@@ -31,15 +31,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            _asteroidsStatus.value = NasaApiStatus.LOADING
+            _listStatus.value = NasaApiStatus.LOADING
             asteroidsRepository.setFilters(todayAndNextSevenDays)
             try {
                 if (asteroidsRepository.hasNoFreshData()) {
                     asteroidsRepository.refreshAsteroids()
                 }
-                _asteroidsStatus.value = NasaApiStatus.DONE
+                _listStatus.value = NasaApiStatus.DONE
             } catch (e: Exception) {
-                _asteroidsStatus.value = NasaApiStatus.ERROR
+                _listStatus.value = NasaApiStatus.ERROR
             }
         }
 

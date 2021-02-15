@@ -2,12 +2,14 @@ package com.udacity.asteroidradar
 
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
 import com.udacity.asteroidradar.network.NasaApiStatus
@@ -106,5 +108,20 @@ fun ImageView.bindApodStatus(status: NasaApiStatus) {
             setImageResource(R.drawable.loading_animation)
         }
         NasaApiStatus.DONE -> {}
+    }
+}
+
+@BindingAdapter("listStatus")
+fun CircularProgressIndicator.bindListStatus(status: NasaApiStatus) {
+    visibility = when (status) {
+        NasaApiStatus.ERROR -> {
+            View.GONE
+        }
+        NasaApiStatus.LOADING -> {
+            View.VISIBLE
+        }
+        NasaApiStatus.DONE -> {
+            View.GONE
+        }
     }
 }
