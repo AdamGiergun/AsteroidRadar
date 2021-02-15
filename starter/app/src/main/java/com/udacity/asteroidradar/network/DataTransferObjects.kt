@@ -86,7 +86,7 @@ fun NearEarthObjectsContainer.asDbModel(): Array<DbAsteroid> {
 
 @JsonClass(generateAdapter = true)
 data class AstronomyPictureOfTheDay(
-    val copyright: String,
+    val copyright: String?,
     val date: String,
     val explanation: String,
     @Json(name = "media_type") val mediaTypeString: String,
