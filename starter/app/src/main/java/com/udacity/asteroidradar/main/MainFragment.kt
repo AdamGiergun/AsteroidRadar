@@ -21,9 +21,10 @@ class MainFragment : Fragment() {
         return FragmentMainBinding.inflate(inflater).let { binding ->
             binding.lifecycleOwner = this
             binding.viewModel = viewModel
-            binding.asteroidRecycler.adapter = AsteroidListAdapter(AsteroidClickListener { asteroid ->
-                findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
-            })
+            binding.asteroidRecycler.adapter =
+                AsteroidListAdapter(AsteroidClickListener { asteroid ->
+                    findNavController().navigate(MainFragmentDirections.actionShowDetail(asteroid))
+                })
             setHasOptionsMenu(true)
             binding.root
         }
@@ -35,6 +36,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.setFilters(item.itemId)
         return true
     }
 }

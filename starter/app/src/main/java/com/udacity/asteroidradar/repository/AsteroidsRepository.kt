@@ -6,6 +6,7 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.NASA_API_KEY
 import com.udacity.asteroidradar.TODAY_DATE_FORMATTED
 import com.udacity.asteroidradar.db.AsteroidsDb
+import com.udacity.asteroidradar.db.AsteroidDateFilter
 import com.udacity.asteroidradar.db.asDomainModel
 import com.udacity.asteroidradar.network.NasaApi
 import com.udacity.asteroidradar.network.asDbModel
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 class AsteroidsRepository(private val db: AsteroidsDb) {
 
     val asteroids: LiveData<List<Asteroid>> =
-        Transformations.map(db.asteroidDao.getAsteroids(TODAY_DATE_FORMATTED)) {
+        Transformations.map(db.asteroidDao.getAsteroids()) {
             it.asDomainModel()
         }
 
@@ -25,13 +26,25 @@ class AsteroidsRepository(private val db: AsteroidsDb) {
                 NASA_API_KEY,
                 TODAY_DATE_FORMATTED
             ).asDbModel()
-            db.asteroidDao.insertAll(*asteroids)
+            db.asteroidDao.insertAsteroids(*asteroids)
         }
     }
 
     fun hasNoFreshData(): Boolean {
-        asteroids.value.let  { list ->
+        asteroids.value.let { list ->
             return list == null || list.isEmpty()
         }
     }
+
+    suspend fun setFilters(dates: List<String> = emptyList()) {
+        db.asteroidDao.deleteAllDates()
+        val asteroidDates =
+            if (dates.isEmpty())
+                getAllDates()
+            else
+                dates.map { AsteroidDateFilter(it) }
+        db.asteroidDao.insertDates(*asteroidDates.toTypedArray())
+    }
+
+    private suspend fun getAllDates() = db.asteroidDao.getAllDates().map { AsteroidDateFilter(it) }
 }

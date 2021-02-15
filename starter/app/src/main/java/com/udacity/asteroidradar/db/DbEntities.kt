@@ -30,3 +30,8 @@ fun List<DbAsteroid>.asDomainModel(): List<Asteroid> {
         )
     }
 }
+
+@Entity
+data class AsteroidDateFilter constructor(
+    @PrimaryKey val date: String
+)
