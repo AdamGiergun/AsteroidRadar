@@ -16,9 +16,6 @@ interface AsteroidDao {
     @Query("SELECT max(closeApproachDate) FROM DbAsteroid")
     suspend fun getMaxDate(): String
 
-    @Query("SELECT count(*) FROM DbAsteroid WHERE closeApproachDate >= :sinceDate")
-    fun getCount(sinceDate: String): Int
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAsteroids(vararg asteroids: DbAsteroid)
 
@@ -38,7 +35,6 @@ interface AsteroidDao {
     exportSchema = false
 )
 abstract class AsteroidsDb : RoomDatabase() {
-
     abstract val asteroidDao: AsteroidDao
 }
 
