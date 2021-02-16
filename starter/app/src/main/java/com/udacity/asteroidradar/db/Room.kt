@@ -6,6 +6,13 @@ import androidx.room.*
 
 @Dao
 interface AsteroidDao {
+
+    @Query("DELETE FROM AsteroidDateFilter")
+    suspend fun deleteAllDates()
+
+    @Query("SELECT closeApproachDate FROM DbAsteroid GROUP BY closeApproachDate ORDER BY closeApproachDate")
+    suspend fun getAllDates(): List<String>
+
     @Query(
         """SELECT DbAsteroid.* FROM DbAsteroid 
             INNER JOIN AsteroidDateFilter ON DbAsteroid.closeApproachDate = AsteroidDateFilter.date
@@ -21,12 +28,6 @@ interface AsteroidDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDates(vararg asteroidDateFilter: AsteroidDateFilter)
-
-    @Query("SELECT closeApproachDate FROM DbAsteroid GROUP BY closeApproachDate ORDER BY closeApproachDate")
-    suspend fun getAllDates(): List<String>
-
-    @Query("DELETE FROM AsteroidDateFilter")
-    suspend fun deleteAllDates()
 }
 
 @Database(
