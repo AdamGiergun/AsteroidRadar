@@ -6,20 +6,15 @@ import androidx.room.*
 
 @Dao
 interface AsteroidDao {
-
-    @Query(
-        """SELECT * FROM DbAsteroid 
-            WHERE closeApproachDate >= :sinceDate
-            ORDER BY closeApproachDate, isPotentiallyHazardous DESC, distanceFromEarth"""
-    )
-    fun getAsteroids(sinceDate: String): LiveData<List<DbAsteroid>>
-
     @Query(
         """SELECT DbAsteroid.* FROM DbAsteroid 
             INNER JOIN AsteroidDateFilter ON DbAsteroid.closeApproachDate = AsteroidDateFilter.date
             ORDER BY closeApproachDate, isPotentiallyHazardous DESC, distanceFromEarth"""
     )
     fun getAsteroids(): LiveData<List<DbAsteroid>>
+
+    @Query("SELECT max(closeApproachDate) FROM DbAsteroid")
+    suspend fun getMaxDate(): String
 
     @Query("SELECT count(*) FROM DbAsteroid WHERE closeApproachDate >= :sinceDate")
     fun getCount(sinceDate: String): Int

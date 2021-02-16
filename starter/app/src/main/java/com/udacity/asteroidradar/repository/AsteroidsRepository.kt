@@ -9,6 +9,7 @@ import com.udacity.asteroidradar.db.AsteroidsDb
 import com.udacity.asteroidradar.db.AsteroidDateFilter
 import com.udacity.asteroidradar.network.NasaApi
 import com.udacity.asteroidradar.network.asDbModel
+import com.udacity.asteroidradar.util.FormattedDates.currentEndDate
 import com.udacity.asteroidradar.util.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,10 +31,8 @@ class AsteroidsRepository(private val db: AsteroidsDb) {
         }
     }
 
-    fun hasNoFreshData(): Boolean {
-        asteroids.value.let { list ->
-            return list == null || list.isEmpty()
-        }
+    suspend fun hasNotCurrentData(): Boolean {
+        return db.asteroidDao.getMaxDate() != currentEndDate
     }
 
     suspend fun setFilters(dates: List<String> = emptyList()) {
