@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidListAdapter
@@ -107,21 +108,31 @@ fun ImageView.bindApodStatus(status: NasaApiStatus) {
             layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
             setImageResource(R.drawable.loading_animation)
         }
-        NasaApiStatus.DONE -> {}
+        NasaApiStatus.DONE -> {
+        }
     }
 }
 
 @BindingAdapter("listStatus")
 fun CircularProgressIndicator.bindListStatus(status: NasaApiStatus) {
     visibility = when (status) {
-        NasaApiStatus.ERROR -> {
+        NasaApiStatus.ERROR ->
             View.GONE
-        }
-        NasaApiStatus.LOADING -> {
+        NasaApiStatus.LOADING ->
             View.VISIBLE
-        }
-        NasaApiStatus.DONE -> {
+        NasaApiStatus.DONE ->
             View.GONE
-        }
+    }
+}
+
+@BindingAdapter("listStatus")
+fun FloatingActionButton.bindListStatus(status: NasaApiStatus) {
+    visibility = when (status) {
+        NasaApiStatus.ERROR ->
+            View.VISIBLE
+        NasaApiStatus.LOADING ->
+            View.GONE
+        NasaApiStatus.DONE ->
+            View.GONE
     }
 }
