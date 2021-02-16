@@ -11,10 +11,12 @@ import com.udacity.asteroidradar.databinding.AsteroidListItemBinding
 class AsteroidListAdapter(private val clickListener: AsteroidClickListener): ListAdapter<Asteroid, AsteroidListAdapter.AsteroidViewHolder>(DiffCallback) {
 
     class AsteroidViewHolder(private var binding: AsteroidListItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: AsteroidClickListener, asteroid: Asteroid) {
-            binding.asteroid = asteroid
-            binding.clickListener = listener
-            binding.executePendingBindings()
+        fun bind(listener: AsteroidClickListener, _asteroid: Asteroid) {
+            binding.run {
+                asteroid = _asteroid
+                clickListener = listener
+                executePendingBindings()
+            }
         }
 
         companion object {
