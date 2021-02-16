@@ -10,6 +10,9 @@ interface AsteroidDao {
     @Query("DELETE FROM AsteroidDateFilter")
     suspend fun deleteAllDates()
 
+    @Query("DELETE FROM DbAsteroid WHERE closeApproachDate<:today")
+    suspend fun deleteOldAsteroids(today: List<String>)
+
     @Query("SELECT closeApproachDate FROM DbAsteroid GROUP BY closeApproachDate ORDER BY closeApproachDate")
     suspend fun getAllDates(): List<String>
 
@@ -28,6 +31,7 @@ interface AsteroidDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDates(vararg asteroidDateFilter: AsteroidDateFilter)
+
 }
 
 @Database(
