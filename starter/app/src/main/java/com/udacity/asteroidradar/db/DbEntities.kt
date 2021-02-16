@@ -16,21 +16,6 @@ data class DbAsteroid constructor(
     val isPotentiallyHazardous: Boolean
 )
 
-fun List<DbAsteroid>.asDomainModel(): List<Asteroid> {
-    return map {
-        Asteroid(
-            id = it.id,
-            codename = it.codename,
-            closeApproachDate = it.closeApproachDate,
-            absoluteMagnitude = it.absoluteMagnitude,
-            estimatedDiameter = it.estimatedDiameter,
-            relativeVelocity = it.relativeVelocity,
-            distanceFromEarth = it.distanceFromEarth,
-            isPotentiallyHazardous = it.isPotentiallyHazardous
-        )
-    }
-}
-
 @Entity
 data class AsteroidDateFilter constructor(
     @PrimaryKey val date: String

@@ -7,9 +7,9 @@ import com.udacity.asteroidradar.NASA_API_KEY
 import com.udacity.asteroidradar.TODAY_DATE_FORMATTED
 import com.udacity.asteroidradar.db.AsteroidsDb
 import com.udacity.asteroidradar.db.AsteroidDateFilter
-import com.udacity.asteroidradar.db.asDomainModel
 import com.udacity.asteroidradar.network.NasaApi
 import com.udacity.asteroidradar.network.asDbModel
+import com.udacity.asteroidradar.util.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
