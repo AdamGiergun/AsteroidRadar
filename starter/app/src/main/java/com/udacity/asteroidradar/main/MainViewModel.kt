@@ -38,7 +38,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 asteroidsRepository.refreshAsteroids()
             }
         }
-
         tryRefresh(_apodStatus) { apodRepository.refreshApod() }
     }
 
@@ -52,6 +51,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 status.value = NasaApiStatus.ERROR
             }
         }
+    }
+
+    fun refreshDataIfError() {
+        if (apodStatus.value == NasaApiStatus.ERROR)
+            tryRefresh(_apodStatus) { apodRepository.refreshApod() }
+        if (listStatus.value == NasaApiStatus.ERROR)
+            tryRefresh(_listStatus) { asteroidsRepository.refreshAsteroids() }
     }
 
     fun setFilters(mainMenuItemId: Int) {
