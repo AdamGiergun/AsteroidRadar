@@ -94,12 +94,3 @@ data class AstronomyPictureOfTheDay(
     val title: String,
     val url: String
 )
-
-fun AstronomyPictureOfTheDay.asDomainModel(): PictureOfDay {
-    val mediaType = when (mediaTypeString) {
-        "image" -> PictureOfDay.MediaType.IMAGE
-        "video" -> PictureOfDay.MediaType.VIDEO
-        else -> PictureOfDay.MediaType.UNKNOWN
-    }
-    return PictureOfDay(mediaType, title, url)
-}
