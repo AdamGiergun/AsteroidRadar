@@ -125,14 +125,11 @@ fun CircularProgressIndicator.bindListStatus(status: NasaApiStatus) {
     }
 }
 
-@BindingAdapter("listStatus")
-fun FloatingActionButton.bindListStatus(status: NasaApiStatus) {
-    visibility = when (status) {
-        NasaApiStatus.ERROR ->
+@BindingAdapter("listStatus", "apodStatus")
+fun FloatingActionButton.bindListStatus(listStatus: NasaApiStatus, apodStatus: NasaApiStatus) {
+    visibility =
+        if (listStatus == NasaApiStatus.ERROR || apodStatus == NasaApiStatus.ERROR)
             View.VISIBLE
-        NasaApiStatus.LOADING ->
+        else
             View.GONE
-        NasaApiStatus.DONE ->
-            View.GONE
-    }
 }
