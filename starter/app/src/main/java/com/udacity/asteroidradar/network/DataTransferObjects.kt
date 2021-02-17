@@ -8,7 +8,6 @@ package com.udacity.asteroidradar.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.db.DbAsteroid
 
 @JsonClass(generateAdapter = true)
