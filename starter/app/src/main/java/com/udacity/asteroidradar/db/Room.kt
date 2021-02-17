@@ -11,7 +11,7 @@ interface AsteroidDao {
     suspend fun deleteAllDates()
 
     @Query("DELETE FROM DbAsteroid WHERE closeApproachDate<:today")
-    suspend fun deleteOldAsteroids(today: List<String>)
+    suspend fun deleteOldAsteroids(today: String)
 
     @Query("SELECT closeApproachDate FROM DbAsteroid GROUP BY closeApproachDate ORDER BY closeApproachDate")
     suspend fun getAllDates(): List<String>

@@ -10,8 +10,8 @@ import com.udacity.asteroidradar.db.getDatabase
 import com.udacity.asteroidradar.network.NasaApiStatus
 import com.udacity.asteroidradar.repository.ApodRepository
 import com.udacity.asteroidradar.repository.AsteroidsRepository
-import com.udacity.asteroidradar.util.FormattedDates.datesFromTodayTillEndDate
-import com.udacity.asteroidradar.util.FormattedDates.today
+import com.udacity.asteroidradar.util.FormattedDates.DATES_SINCE_TODAY_TILL_END_DATE
+import com.udacity.asteroidradar.util.FormattedDates.TODAY
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -33,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         tryRefresh(_listStatus) {
-            asteroidsRepository.setFilters(datesFromTodayTillEndDate)
+            asteroidsRepository.setFilters(DATES_SINCE_TODAY_TILL_END_DATE)
             if (asteroidsRepository.hasNotCurrentData()) {
                 asteroidsRepository.refreshAsteroids()
             }
@@ -64,9 +64,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             when (mainMenuItemId) {
                 R.id.show_week_asteroids_menu ->
-                    asteroidsRepository.setFilters(datesFromTodayTillEndDate)
+                    asteroidsRepository.setFilters(DATES_SINCE_TODAY_TILL_END_DATE)
                 R.id.show_today_asteroids_menu ->
-                    asteroidsRepository.setFilters(today)
+                    asteroidsRepository.setFilters(listOf(TODAY))
                 R.id.show_saved_asteroids_menu ->
                     asteroidsRepository.setFilters()
                 else -> {

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.udacity.asteroidradar.NASA_API_KEY
 import com.udacity.asteroidradar.PictureOfDay
-import com.udacity.asteroidradar.TODAY_DATE_FORMATTED
 import com.udacity.asteroidradar.network.NasaApi
+import com.udacity.asteroidradar.util.FormattedDates.TODAY
 import com.udacity.asteroidradar.util.asDomainModel
 
 class ApodRepository {
@@ -17,7 +17,7 @@ class ApodRepository {
     suspend fun refreshApod() {
         _apod.value = NasaApi.retrofitApiService.getAPOD(
             NASA_API_KEY,
-            TODAY_DATE_FORMATTED
+            TODAY
             // "2021-02-09" // use it for testing PictureOfDay.MediaType.VIDEO
         ).asDomainModel()
     }

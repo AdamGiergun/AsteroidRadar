@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.NASA_API_KEY
-import com.udacity.asteroidradar.TODAY_DATE_FORMATTED
 import com.udacity.asteroidradar.db.AsteroidsDb
 import com.udacity.asteroidradar.db.AsteroidDateFilter
 import com.udacity.asteroidradar.network.NasaApi
 import com.udacity.asteroidradar.network.asDbModel
-import com.udacity.asteroidradar.util.FormattedDates.currentEndDate
-import com.udacity.asteroidradar.util.FormattedDates.today
+import com.udacity.asteroidradar.util.FormattedDates.END_DATE
+import com.udacity.asteroidradar.util.FormattedDates.TODAY
 import com.udacity.asteroidradar.util.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,18 +22,18 @@ class AsteroidsRepository(private val db: AsteroidsDb) {
         }
 
     suspend fun deleteOldAsteroids() {
-        db.asteroidDao.deleteOldAsteroids(today)
+        db.asteroidDao.deleteOldAsteroids(TODAY)
     }
 
     suspend fun hasNotCurrentData(): Boolean {
-        return db.asteroidDao.getMaxDate() != currentEndDate
+        return db.asteroidDao.getMaxDate() != END_DATE
     }
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
             val asteroids = NasaApi.retrofitApiService.getAsteroids(
                 NASA_API_KEY,
-                TODAY_DATE_FORMATTED
+                TODAY
             ).asDbModel()
             db.asteroidDao.insertAsteroids(*asteroids)
         }

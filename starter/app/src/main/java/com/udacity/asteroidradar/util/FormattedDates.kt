@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object FormattedDates {
-    val today: List<String>
+    val TODAY: String
         get() {
             val calendar = Calendar.getInstance()
-            return listOf(formattedDate(calendar))
+            return formattedDate(calendar)
         }
 
-    val datesFromTodayTillEndDate: List<String>
+    val DATES_SINCE_TODAY_TILL_END_DATE: List<String>
         get() {
             val calendar = Calendar.getInstance()
             val list = mutableListOf(formattedDate(calendar))
@@ -23,7 +23,7 @@ object FormattedDates {
             return list
         }
 
-    val currentEndDate: String
+    val END_DATE: String
         get() {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DAY_OF_MONTH, DEFAULT_END_DATE_DAYS)
