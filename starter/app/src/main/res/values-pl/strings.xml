@@ -14,7 +14,7 @@
     <string name="km_unit_format">%f km</string>
     <string name="km_s_unit_format">%f km/s</string>
     <string name="image_of_the_day">Obraz dnia</string>
-    <string name="astronomica_unit_explanation">Jednostka astronomiczna (au) to jednostka odległości, odpowiadająca w przybliżeniu odległości Ziemi od Słońca i wynosząca blisko 150 mln kilometrów (93 mln mil)</string>
+    <string name="astronomical_unit_explanation">Jednostka astronomiczna (au) to jednostka odległości, odpowiadająca w przybliżeniu odległości Ziemi od Słońca i wynosząca blisko 150 mln kilometrów (93 mln mil)</string>
     <string name="astronomical_unit_explanation_button">Definicja jednostki astronomicznej</string>
     <string name="potentially_hazardous_asteroid_image">Obraz potencjalnie groźnej asteroidy</string>
     <string name="not_hazardous_asteroid_image">Obraz niegroźnej asteroidy</string>
