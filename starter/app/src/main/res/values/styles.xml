@@ -8,4 +8,43 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ApodDesc" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:background">@color/apod_desc_background_color</item>
+        <item name="android:padding">@dimen/margin_medium</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ApodImage" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:contentDescription">
+            @string/this_is_nasa_s_picture_of_day_showing_nothing_yet
+        </item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="RefreshButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/fab_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:contentDescription">@string/refresh_data</item>
+        <item name="android:focusable">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="StatusLoadingWheel" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/background_light</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

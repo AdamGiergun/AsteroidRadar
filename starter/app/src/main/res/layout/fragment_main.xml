@@ -25,27 +25,15 @@
 
             <ImageView
                 android:id="@+id/activity_main_image_of_the_day"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/this_is_nasa_s_picture_of_day_showing_nothing_yet"
-                android:scaleType="centerCrop"
+                style="@style/ApodImage"
                 app:apod="@{viewModel.apod}"
                 app:apodStatus="@{viewModel.apodStatus}"
+                tools:ignore="ContentDescription"
                 tools:srcCompat="@drawable/placeholder_picture_of_day" />
 
-
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#55010613"
-                android:padding="16dp"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:id="@+id/activity_main_image_of_the_day_desc"
+                style="@style/ApodDesc"
                 app:apodDesc="@{viewModel.apod}" />
         </FrameLayout>
 
@@ -64,12 +52,7 @@
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/status_loading_wheel"
-            style="@style/Widget.MaterialComponents.CircularProgressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
-            android:indeterminate="true"
-            android:visibility="gone"
+            style="@style/StatusLoadingWheel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,19 +61,13 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/refreshButton"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fab_margin"
+            style="@style/RefreshButton"
             android:layout_marginEnd="@dimen/fab_margin"
-            android:clickable="true"
-            android:contentDescription="@string/refresh_data"
-            android:focusable="true"
-            android:visibility="gone"
             app:apodStatus="@{viewModel.apodStatus}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:listStatus="@{viewModel.listStatus}"
-            app:srcCompat="@drawable/ic_refresh" />
+            app:srcCompat="@drawable/ic_refresh"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
