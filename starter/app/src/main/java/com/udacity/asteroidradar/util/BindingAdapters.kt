@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar
+package com.udacity.asteroidradar.util
 
 import android.content.Intent
 import android.net.Uri
@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.squareup.picasso.Picasso
+import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.PictureOfDay
+import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.main.AsteroidListAdapter
 import com.udacity.asteroidradar.network.NasaApiStatus
 
