@@ -85,7 +85,7 @@ fun ImageView.bindApod(apod: PictureOfDay?) {
                 setImageResource(R.drawable.ic_broken_image)
             }
         }
-        contentDescription = it.title
+        contentDescription = context.getString(R.string.nasa_picture_of_day_content_description_format, it.title)
     }
 }
 
