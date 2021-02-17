@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 
 lateinit var NASA_API_KEY: String
 
+@Suppress("unused")
 class AsteroidRadarApp : Application() {
 
     private val applicationScope = CoroutineScope(Dispatchers.Default)
