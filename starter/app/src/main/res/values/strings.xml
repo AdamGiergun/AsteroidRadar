@@ -9,6 +9,7 @@
     <string name="estimated_diameter_title">Estimated diameter</string>
     <string name="relative_velocity_title">Relative velocity</string>
     <string name="distance_from_earth_title">Distance from earth</string>
+    <string name="absolute_magnitude_format">%f mag</string>
     <string name="astronomical_unit_format">%f au</string>
     <string name="km_unit_format">%f km</string>
     <string name="km_s_unit_format">%f km/s</string>

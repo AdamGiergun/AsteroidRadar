@@ -42,6 +42,11 @@ fun ImageView.bindDetailsStatusImage(isHazardous: Boolean) {
     }
 }
 
+@BindingAdapter("absoluteMagnitudeText")
+fun TextView.bindAbsoluteMagnitude(number: Double) {
+    text = String.format(context.getString(R.string.absolute_magnitude_format), number)
+}
+
 @BindingAdapter("astronomicalUnitText")
 fun TextView.bindAstronomicalUnit(number: Double) {
     text = String.format(context.getString(R.string.astronomical_unit_format), number)
