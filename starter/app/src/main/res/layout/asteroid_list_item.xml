@@ -17,16 +17,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.udacity.asteroidradar.main.MainFragment"
-        android:onClick="@{() -> clickListener.onClick(asteroid)}">
+        android:onClick="@{() -> clickListener.onClick(asteroid)}"
+        tools:context="com.udacity.asteroidradar.main.MainFragment">
 
         <TextView
             android:id="@+id/codename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginEnd="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:text="@{asteroid.codename}"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -38,7 +38,7 @@
             android:id="@+id/closeApproachDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_big"
+            android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@{asteroid.closeApproachDate}"
             android:textColor="@android:color/white"
@@ -49,7 +49,6 @@
 
         <ImageView
             android:id="@+id/statusIcon"
-            statusIcon="@{asteroid.isPotentiallyHazardous}"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="@dimen/margin_small"
@@ -58,7 +57,9 @@
             android:layout_marginBottom="@dimen/margin_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusIcon="@{asteroid.isPotentiallyHazardous}"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
