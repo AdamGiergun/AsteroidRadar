@@ -20,7 +20,6 @@
     <string name="not_hazardous_asteroid_image">Obraz niegroźnej asteroidy</string>
     <string name="this_is_nasa_s_picture_of_day_showing_nothing_yet">To jest miejsce na obraz dnia NASA</string>
     <string name="nasa_picture_of_day_content_description_format">Obraz dnia NASA: %s</string>
-    <string name="details_help_button_description">Przycisk pomocy</string>
     <string name="touch_to_play_video">Dotkinij by odtworzyć video</string>
     <string name="video_of_the_day">Video dnia</string>
     <string name="refresh_data">Odśwież dane</string>
