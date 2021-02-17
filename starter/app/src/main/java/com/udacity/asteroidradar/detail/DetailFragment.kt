@@ -17,14 +17,14 @@ class DetailFragment : Fragment() {
         return FragmentDetailBinding.inflate(inflater).run {
             lifecycleOwner = this@DetailFragment
             asteroid = DetailFragmentArgs.fromBundle(requireArguments()).selectedAsteroid
-            helpButton.setOnClickListener { displayAstronomicalUnitExplanationDialog() }
+            auExplanationButton.setOnClickListener { displayAstronomicalUnitExplanationDialog() }
             root
         }
     }
 
     private fun displayAstronomicalUnitExplanationDialog() {
         AlertDialog.Builder(requireActivity()).run {
-            setMessage(getString(R.string.astronomica_unit_explanation))
+            setMessage(getString(R.string.astronomical_unit_explanation))
             setPositiveButton(android.R.string.ok, null)
             create()
             show()

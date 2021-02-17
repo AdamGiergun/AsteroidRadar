@@ -101,12 +101,10 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/help_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/details_help_button_description"
-                        android:padding="@dimen/margin_medium"
-                        app:srcCompat="@drawable/ic_help_circle" />
+                        android:id="@+id/au_explanation_button"
+                        style="@style/AuHelpButton"
+                        app:srcCompat="@drawable/ic_help_circle"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
 
